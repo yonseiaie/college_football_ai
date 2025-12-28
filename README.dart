@@ -6,8 +6,16 @@ import 'package:http/http.dart' as http;
 
 // ==================== CFBDApi ====================
 class CFBDApi {
-  final String apiKey = "NwvR0m+vC1ONr2BDomlUuEBYygOu2jAaV+CKHN6MAn9yJibcmxTJv98n/zOqs1kR";
-  final String baseUrl = "https://api.collegefootballdata.com";
+  static const String apiKey = String.fromEnvironment('CFBD_API_KEY');
+  static const String baseUrl = "https://api.collegefootballdata.com";
+
+  Map<String, String> get headers {
+    return {
+      "Authorization": "Bearer $apiKey",
+    };
+  }
+}
+
 
   Future<List<dynamic>> fetchTeams() async {
     final uri = Uri.parse("$baseUrl/teams");
